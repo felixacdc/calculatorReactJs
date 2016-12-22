@@ -1,2 +1,2 @@
-# calculatorReactJs
+# Calculator ReactJs
 Calculadora con ReactJs
