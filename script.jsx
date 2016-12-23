@@ -8,7 +8,7 @@ var ComponenteCalculadora = React.createClass({
             txtSalida: 0
         };
     },
-    EvaluaColores: function(it) {
+    EvaluarColores: function(it) {
         var nombreClase = 'primary';
         var signos = ['+', '-', '*', '/'];
         if(signos.indexOf(it) > -1) {nombreClase = 'success';}
@@ -30,5 +30,22 @@ var ComponenteCalculadora = React.createClass({
                <input type="button" className={ClaseBotones + (self.EvaluarColores(item))} value={item}/>
            </div> 
         });
+        
+        return React.DOM.div({
+            className: 'form-group',
+            children: [React.DOM.input({
+                type: 'text',
+                className: 'form-control',
+                name: 'txtResultado',
+                ref: 'txtResultado',
+                value: this.state.txtSalida,
+                style: {height: '67px', fontSize: '44px', textAlign:'right',marginBottom:"20px",boxShadow:"inset 3px 3px rgba(0, 0, 0, 0.2)"},
+                placeholder: "Disabled"
+            }),
+            (<div className="row">{ListaBotones}</div>),
+            (<input onClick={this.BorrarPantalla} type="button" className="btn btn-danger btn-lg btn-block" value='Borrar'/>)]
+        });
     }
 });
+
+React.renderComponent(<ComponenteCalculadora data={Botones}/>, document.getElementById('idCalculadora'));
