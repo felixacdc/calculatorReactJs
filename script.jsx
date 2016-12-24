@@ -16,10 +16,24 @@ var ComponenteCalculadora = React.createClass({
         return nombreClase;
     },
     BorrarPantalla: function() {
-        
+        this.setState({txtSalida: 0});
     },
     EvaluarBotones: function(itemPresionado) {
+        var signos = ['+', '-', '*', '/'];
         
+        if (itemPresionado == '=') {
+            this.setState({txtSalida: eval(this.state.txtSalida)});
+        } else {
+            if ((this.state.txtSalida == 0)) {
+                if (signos.indexOf(itemPresionado) > -1) {
+                    this.setState({txtSalida: 0});
+                } else {
+                    this.setState({txtSalida: itemPresionado});
+                }
+            } else {
+                this.setState({txtSalida: this.state.txtSalida + itemPresionado})
+            }
+        }
     },
     render: function() {
         var self = this;
@@ -27,7 +41,7 @@ var ComponenteCalculadora = React.createClass({
         var ClaseBotones = 'btn-lg btn-block btn btn-';
         var ListaBotones = this.state.data.map(function(item) {
            return <div className='col-md-3' style={mBottom}>
-               <input type="button" className={ClaseBotones + (self.EvaluarColores(item))} value={item}/>
+               <input type="button" onClick={self.EvaluarBotones.bind(self, item)} className={ClaseBotones + (self.EvaluarColores(item))} value={item}/>
            </div> 
         });
         
